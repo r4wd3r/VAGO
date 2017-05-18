@@ -1,2 +1,2 @@
 # VAGO
-Visual Advanced Analysis oooooooooof Passwords
+Visual Advanced Graphics oooooooooof Passwords
