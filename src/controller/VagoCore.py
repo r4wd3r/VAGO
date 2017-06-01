@@ -15,4 +15,5 @@ class VagoCore():
         if not self.inputParser.input_file_path:
             pass
         else:
-            print "Begin the process"
+            self.workData.input_file_path = self.inputParser.input_file_path
+            self.fileProcessing.read_file(self.workData.input_file_path)
