@@ -12,7 +12,7 @@ class FileProcessing():
         try:
             with codecs.open(file_path, encoding='utf8') as f:
                 for line in f:
-                    self.file_lines.append([line.strip()])
+                    self.file_lines.append([line.strip().encode("utf-8")])
             print self.file_lines
         except:
             self.fileProcessingOutput.print_error_reading_file()
