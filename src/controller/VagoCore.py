@@ -10,4 +10,7 @@ class VagoCore():
         self.workData = WorkData()
 
     def run(self):
-        print "hola"
+        if not self.inputParser.input_file_path:
+            pass
+        else:
+            print "Begin the process"

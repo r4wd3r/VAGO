@@ -4,9 +4,12 @@ from src.view.InputParserOutput import InputParserOutput
 
 
 class InputParser():
+    '''Clase encargada de gestionar el parser'''
+
     def __init__(self):
         self.inputParserOutput = InputParserOutput()
         self.input_file_path = ""
+        self.inputParserOutput.print_header()
         parser = argparse.ArgumentParser(
             description='Visual Advanced Graphicator Oooooooof Passwords... ',
             usage='''./vago.py <args> input_file''')
