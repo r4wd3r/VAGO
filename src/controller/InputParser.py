@@ -14,6 +14,8 @@ class InputParser():
         parser.add_argument('input_file', help='Archivo a procesar', type=str, action='store')
         args = parser.parse_args()
 
+        self.check_if_file_exists(args.input_file)
+
     def check_if_file_exists(self, path):
 
         if not os.path.exists(path):
