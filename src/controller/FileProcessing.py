@@ -10,7 +10,7 @@ class FileProcessing():
     def read_file(self, file_path):
         self.fileProcessingOutput.print_reading_file(file_path)
         try:
-            with open(file_path, 'rt', encoding='utf-8') as f:
+            with codecs.open(file_path, encoding='utf8') as f:
                 for line in f:
                     self.file_lines.append([line.strip()])
             print self.file_lines
