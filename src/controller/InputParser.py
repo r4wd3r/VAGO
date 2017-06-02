@@ -7,21 +7,20 @@ class InputParser():
     '''Clase encargada de gestionar el parser'''
 
     def __init__(self):
+        # TODO: Ajustar encapsulamiento de variable input_file_path
         self.inputParserOutput = InputParserOutput()
-        self.input_file_path = ""
         self.inputParserOutput.print_header()
         parser = argparse.ArgumentParser(
             description='Visual Advanced Graphicator Oooooooof Passwords... ',
             usage='''./vago.py <args> input_file''')
 
         parser.add_argument('input_file', help='Archivo a procesar', type=str, action='store')
-        args = parser.parse_args()
+        self.args = parser.parse_args()
 
-        self.check_if_file_exists(args.input_file)
-
-    def check_if_file_exists(self, path):
-
+    def check_if_file_exists(self):
+        path = self.args.input_file
         if not os.path.exists(path):
             self.inputParserOutput.print_error_file_does_not_exist()
+            return ""
         else:
-            self.input_file_path = str(path)
+            return str(path)
