@@ -1,5 +1,8 @@
+# encoding=utf-8
+
 from src.model.WorkData import WorkData
 from src.model.Password import Password
+from src.view.VagoCoreOutput import VagoCoreOutput
 from InputParser import InputParser
 from FileProcessing import FileProcessing
 from DataProcessing import DataProcessing
@@ -15,15 +18,22 @@ class VagoCore():
         self.workData = WorkData()
         self.fileProcessing = FileProcessing()
         self.dataProcessing = DataProcessing()
+        self.vagoCoreOutput = VagoCoreOutput()
 
     def run(self):
         self.process_input_file()
+        self.prepare_workdata()
 
     def process_input_file(self):
         '''
         Lectura del archivo y almacenamiento en la clase WorkData
         Lee el archivo y almacena las lineas en la lista workdata.input_file_lines
         '''
+
+        # Mostrar en pantalla proceso iniciado#
+        self.vagoCoreOutput.print_input_file_processing_started()
+        # -------------------------------------#
+
         _check_file_result = self.inputParser.check_if_file_exists()
         if _check_file_result:
             self.workData.input_file_path = _check_file_result
@@ -39,3 +49,16 @@ class VagoCore():
         '''
         Prepara al objeto workdata que contiene los datos necesarios para generar los archivos para graficar
         '''
+
+        # Mostrar en pantalla proceso iniciado#
+        self.vagoCoreOutput.print_work_data_processing_started()
+        # -------------------------------------#
+
+        self.workData.passwords_table = self.dataProcessing.convert_to_password_hashtable(
+            self.workData.input_file_lines,
+            self.workData.input_file_type)
+
+        # Ejemplo de impresión
+        for _key in self.workData.passwords_table:
+            print _key + ":" + str(self.workData.passwords_table[_key].freq) + ":" + str(
+                self.workData.passwords_table[_key].mask)

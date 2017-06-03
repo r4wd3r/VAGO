@@ -1,3 +1,5 @@
+# encoding=utf-8
+
 class WorkData():
     '''Almacena todos los datos de trabajo para procesar.'''
 

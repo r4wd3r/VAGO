@@ -1,3 +1,5 @@
+# encoding=utf-8
+
 from src.view.DataProcessingOutput import DataProcessingOutput
 from src.model.Password import Password
 
@@ -5,6 +7,10 @@ import string
 
 
 class DataProcessing():
+    '''
+    Clase encargada de procesar los archivos para almacenar en Workdata
+    '''
+
     def __init__(self):
         self.dataProcessingOutput = DataProcessingOutput()
 
@@ -15,17 +21,49 @@ class DataProcessing():
         hashtable = {}
 
         for _line in file_lines:
-            _password = self.convert_line_to_password(_line, file_type)
+            _password = Password()
+            (_key, _password) = self.convert_line_to_password(_line, file_type)
+            if _key in hashtable:
+                _password.freq = hashtable[_key].freq
+                hashtable[_key].freq += 1
+            else:
+                _password.freq = 1
+                hashtable[_key] = _password
         return hashtable
 
     def convert_line_to_password(self, line, file_type):
+        '''
+        Realiza la conversion de texto a un objeto de la clase password, y genera la llave para almacenar en
+        la hashtable
+
+        file_type 0:
+        La llave utilizada para la hashtable es la cadena de texto misma.
+
+        file_type 1:
+        La llave utilizada es el hash provisto en el archivo
+
+        file_type 2:
+        La llave utilizada es el hash provisto en el archivo
+
+        :param file_type:
+        :return: key: Llave de hashtable, password: Objeto password procesado.
+        '''
+
         password = Password()
+        key = ""
         if file_type == 0:  # Formato "password"
             (pass_length, charset, simplemask_string, advancedmask_string, policy) = self.analyze_password(line)
             password.text = line
             password.length = pass_length
             password.mask = advancedmask_string
-        return password
+            key = line
+        elif file_type == 1:
+            # TODO: Procesar tipo de archivo 1
+            pass
+        elif file_type == 2:
+            # TODO: Procesar tipo de archivo 2
+            pass
+        return (key, password)
 
     def analyze_password(self, password):
         '''

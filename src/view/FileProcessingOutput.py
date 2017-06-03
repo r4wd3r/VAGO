@@ -1,7 +1,7 @@
 class FileProcessingOutput():
     def __init__(self):
         # STANDARD OUTPUT
-        self.READING_FILE = "Reading the file: "
+        self.READING_FILE = "[-] Reading the file: "
         # ERRORS
         self.ERROR_READING_FILE = "ERROR: Cannot read the file. Maybe it is not in VAGO format or is empty."
 

@@ -1,5 +1,4 @@
-import Algorithm
-
+# encoding=utf-8
 
 class Password():
     def __init__(self):
@@ -9,7 +8,7 @@ class Password():
         self.length = 0  # Longitud de la contraseña
         self.freq = 0  # Repeticiones de la contraseña en el archivo
         self.complexity = 0  # Define el nivel de complejidad de la contraseña
-        self.hashtype = Algorithm()  # Algoritmo de cifrado utilizado
+        self.hashtype = ""  # Algoritmo de cifrado utilizado
         self.mask = None  # Máscara de la contraseña en formato hashcat
 
     @property
@@ -57,13 +56,21 @@ class Password():
         return self.complexity
 
     @complexity.setter
-    def complexity(self,value):
+    def complexity(self, value):
         self.complexity = value
+
+    @property
+    def hashtype(self):
+        return self.hashtype
+
+    @hashtype.setter
+    def hashtype(self, value):
+        self.hashtype = value
 
     @property
     def mask(self):
         return self.mask
 
     @mask.setter
-    def mask(self,value):
+    def mask(self, value):
         self.mask = value

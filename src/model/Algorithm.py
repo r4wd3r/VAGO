@@ -1,3 +1,5 @@
+# encoding=utf-8
+
 class Algorithm():
     def __init__(self):
         self.id = 0
