@@ -54,9 +54,11 @@ class VagoCore():
         self.vagoCoreOutput.print_work_data_processing_started()
         # -------------------------------------#
 
+        self.workData.number_of_lines = len(self.workData.input_file_lines)
         self.workData.passwords_table = self.dataProcessing.convert_to_password_hashtable(
             self.workData.input_file_lines,
             self.workData.input_file_type)
+        self.workData.number_of_passwords = len(self.workData.passwords_table)
 
         # Ejemplo de impresión
         for _key in self.workData.passwords_table:

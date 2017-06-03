@@ -1,6 +1,7 @@
 # encoding=utf-8
 
 import codecs
+import sys
 from src.view.FileProcessingOutput import FileProcessingOutput
 
 
@@ -23,11 +24,12 @@ class FileProcessing():
                     line = l.strip().encode("utf-8")
                     if line != "":
                         file_lines.append(line)
+            self.fileProcessingOutput.print_input_file_lines(len(file_lines))
         except:
             self.fileProcessingOutput.print_error_reading_file()
-            return file_lines
+            sys.exit()
 
         if not file_lines:
             self.fileProcessingOutput.print_error_reading_file()
-            return file_lines
+            sys.exit()
         return file_lines
