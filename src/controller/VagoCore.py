@@ -34,10 +34,12 @@ class VagoCore():
         self.vagoCoreOutput.print_input_file_processing_started()
         # -------------------------------------#
 
-        _check_file_result = self.inputParser.check_if_file_exists()
-        if _check_file_result:
-            self.workData.input_file_path = _check_file_result
-            _input_file_lines = self.fileProcessing.read_input_file(self.workData.input_file_path)
+        _check_file_existance_result = self.inputParser.check_if_file_exists()
+        if _check_file_existance_result:
+            self.workData.input_file_path = _check_file_existance_result
+            self.workData.input_file_type = self.inputParser.get_file_type()
+            _input_file_lines = self.fileProcessing.read_input_file(self.workData.input_file_path,
+                                                                    self.workData.input_file_type)
             if _input_file_lines:
                 self.workData.input_file_lines = _input_file_lines
             else:
@@ -63,4 +65,5 @@ class VagoCore():
         # Ejemplo de impresión
         for _key in self.workData.passwords_table:
             print _key + ":" + str(self.workData.passwords_table[_key].freq) + ":" + str(
-                self.workData.passwords_table[_key].mask)
+                self.workData.passwords_table[_key].text) + ":" + str(
+                self.workData.passwords_table[_key].mask) + ":" + str(self.workData.passwords_table[_key].hash)

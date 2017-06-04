@@ -22,7 +22,7 @@ class DataProcessing():
 
         for _line in file_lines:
             _password = Password()
-            (_key, _password) = self.convert_line_to_password(_line, file_type)
+            (_key, _password) = self.convert_line_to_password_object(_line, file_type)
             if _key in hashtable:
                 _password.freq = hashtable[_key].freq
                 hashtable[_key].freq += 1
@@ -31,18 +31,18 @@ class DataProcessing():
                 hashtable[_key] = _password
         return hashtable
 
-    def convert_line_to_password(self, line, file_type):
+    def convert_line_to_password_object(self, line, file_type):
         '''
         Realiza la conversion de texto a un objeto de la clase password, y genera la llave para almacenar en
         la hashtable
 
-        file_type 0:
+        file_type 0:    'password'
         La llave utilizada para la hashtable es la cadena de texto misma.
 
-        file_type 1:
+        file_type 1:    'hash:password'
         La llave utilizada es el hash provisto en el archivo
 
-        file_type 2:
+        file_type 2:    'user:hash:password'
         La llave utilizada es el hash provisto en el archivo
 
         :param file_type:
@@ -57,10 +57,16 @@ class DataProcessing():
             password.length = pass_length
             password.mask = advancedmask_string
             key = line
-        elif file_type == 1:
-            # TODO: Procesar tipo de archivo 1
-            pass
-        elif file_type == 2:
+
+        elif file_type == 1:  # Formato "hash:password"
+            (_hash, _pass) = line.split(':', 1)  # Hace el split en el primer caracter delimitador encontrado.
+            (pass_length, charset, simplemask_string, advancedmask_string, policy) = self.analyze_password(_pass)
+            password.text = _pass
+            password.length = pass_length
+            password.mask = advancedmask_string
+            key = _hash
+
+        elif file_type == 2: # Formato "user:hash:password"
             # TODO: Procesar tipo de archivo 2
             pass
         return (key, password)
